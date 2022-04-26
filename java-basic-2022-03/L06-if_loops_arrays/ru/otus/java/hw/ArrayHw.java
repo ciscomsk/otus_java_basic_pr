@@ -101,7 +101,8 @@ public class ArrayHw {
 //        }
 
         // v3 - 1 three-dimensional array
-        String[][][] pollData =
+//        String[][][] pollData =
+        Object[][][] pollData =
                 {
                         {
                                 {"Если тип данных является монадой - справедливо ли утверждение, что он является функтором?"},
@@ -110,7 +111,8 @@ public class ArrayHw {
                                         "нет",
                                         "возможно"
                                 },
-                                {"1"}
+//                                {"1"}
+                                {Integer.valueOf(1)}
                         },
                         {
                                 {"Выберете правильную сигнатуру метода FlatMap в Scala"},
@@ -119,7 +121,8 @@ public class ArrayHw {
                                         "flatMap[B](f: A => F[B]): F[B]",
                                         "flatmap[B](f: A => Unit): Unit"
                                 },
-                                {"2"}
+//                                {"2"}
+                                {Integer.valueOf(2)}
                         },
                         {
                                 {"В Scala тип данных Future является не ленивым(eager) по умолчанию - возможно ли сделать его ленивым(lazy)?"},
@@ -129,13 +132,14 @@ public class ArrayHw {
                                         "да - при объявлении его в for-comprehension",
                                         "верны варианты 2 и 3"
                                 },
-                                {"4"}
+//                                {"4"}
+                                {Integer.valueOf(4)}
                         }
                 };
 
         Scanner sc = new Scanner(System.in);
 
-        for (String[][] question : pollData) {
+        for (Object[][] question : pollData) {
             for (int i = 0; i < question.length - 1; i++) {
                 for (int j = 0; j < question[i].length; j++) {
 
@@ -146,7 +150,8 @@ public class ArrayHw {
                         System.out.println("Ваш ответ: ");
                         String answer = sc.nextLine().trim();
 
-                        if (answer.equals(question[2][0])) {
+//                        if (answer.equals(question[2][0])) {
+                        if (answer.equals(question[2][0].toString())) {
                             System.out.println("Правильно");
                             rightAns++;
                         } else {

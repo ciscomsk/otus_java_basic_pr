@@ -1,8 +1,9 @@
 package ru.otus;
 
+import ru.otus.unit.DiceImplTest;
+import ru.otus.unit.GameTests;
 
 public class HomeWork {
-
     /*
         Заготовка для ДЗ представляет собой игру в кости.
         При вызове game.playGame(), два игрока кидают кости.
@@ -14,7 +15,9 @@ public class HomeWork {
         Информацию о пройденном тесте предлагается выводить в System.out, а об упавшем в System.err
      */
     public static void main(String[] args) {
+        new DiceImplTest().testRollValues();
 
+        new GameTests().testGameWithEqualDiceValues();
+        new GameTests().testGameWithNonEqualsDiceValues();
     }
-    
 }

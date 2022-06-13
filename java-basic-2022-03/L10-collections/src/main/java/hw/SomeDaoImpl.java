@@ -1,6 +1,7 @@
 package hw;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class SomeDaoImpl {
     public Optional<SomePerson> findPersonInDbById(long id) {
@@ -12,6 +13,12 @@ public class SomeDaoImpl {
     }
 
     private static SomePerson findPersonById(long id) {
-        return new SomePerson();
+        boolean throwException = new Random().nextBoolean();
+
+        if (throwException) {
+            throw new RuntimeException("Oops");
+        }
+
+        return new SomePerson(id);
     }
 }

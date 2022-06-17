@@ -8,20 +8,23 @@ public class Playground {
 //        HandmadeSelectionSort.sort(manualList);
 //        System.out.println(manualList);
 
-        var generatedList = generateRandomList(10_000);
+        var generatedList = generateRandomList(100_000);
+        var clonedList = new ArrayList<>(generatedList);
 //        System.out.println(generatedList);
 
         System.out.println(getExecutionTime(() ->  Collections.sort(generatedList)));
-        System.out.println(getExecutionTime(() ->  HandmadeSelectionSort.sort(generatedList)));
+//        System.out.println(generatedList);
+//        System.out.println(clonedList);
+        System.out.println(getExecutionTime(() ->  HandmadeSelectionSort.sort(clonedList)));
         System.out.println();
         /*
             10_000
-            Collections.sort            == 7
-            HandmadeSelectionSort.sort  == 78
+            Collections.sort            == 8
+            HandmadeSelectionSort.sort  == 120
 
             100_000
-            Collections.sort            == 34
-            HandmadeSelectionSort.sort  == 7848
+            Collections.sort            == 40
+            HandmadeSelectionSort.sort  == 10465
          */
 
         // err - ConcurrentModificationException
@@ -33,19 +36,19 @@ public class Playground {
         var emptyLL = new LinkedList<Integer>();
         var emptyAL = new ArrayList<Integer>();
 
-        var insertLLTime = getExecutionTime(() -> {
-            for (int i = 0; i <= 100_000_000; i++) {
-                emptyLL.add(i);
-            }
-        });
-        System.out.println(insertLLTime); //
-
-        var insertALTime = getExecutionTime(() -> {
-            for (int i = 0; i <= 100_000_000; i++) {
-                emptyAL.add(i);
-            }
-        });
-        System.out.println(insertALTime);
+//        var insertLLTime = getExecutionTime(() -> {
+//           for (int i = 0; i <= 100_000_000; i++) {
+//               emptyLL.add(i);
+//           }
+//        });
+//        System.out.println(insertLLTime); //
+//
+//        var insertALTime = getExecutionTime(() -> {
+//            for (int i = 0; i <= 100_000_000; i++) {
+//                emptyAL.add(i);
+//            }
+//        });
+//        System.out.println(insertALTime);
 
         /*
             Linked list == 13646
@@ -71,8 +74,6 @@ public class Playground {
         Long start = System.currentTimeMillis();
         code.run();
         Long end = System.currentTimeMillis();
-
         return end - start;
     }
-
 }

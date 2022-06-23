@@ -1,0 +1,138 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+    <style>
+        .student-form {
+            border: 1px solid steelblue;
+            width: 500px;
+        }
+
+        .student-name, .student-birthdate, .student-gender {
+            border: 1px solid steelblue;
+            width: 200px;
+        }
+
+        .student-name-label, .student-birthdate-label, .student-gender-label, .add-button {
+            margin-left: 10px;
+        }
+
+        .students-tab {
+            border: 1px solid steelblue;
+            width: 650px;
+            border-collapse: collapse;
+        }
+
+        .students-tab tr td {
+            border: 1px solid steelblue;
+        }
+
+        .students-tab-col1 {
+            width: 300px;
+        }
+
+        .students-tab-col2 {
+            width: 120px;
+        }
+
+        .students-tab-col3 {
+            width: 150px;
+        }
+
+        .students-tab-col4 {
+            width: 80px;
+        }
+    </style>
+    <script>
+        "use strict"
+
+        function calcAvgAge(table) {
+            let totalAge = 0
+            let studentsNumber = 0
+            for (let i = 0, row; row = table.rows[i]; i++) {
+                totalAge += parseInt(row.cells[3].innerHTML)
+                studentsNumber++
+            }
+
+            return (totalAge / studentsNumber).toString()
+        }
+
+        function addStudent() {
+            const studentsTabBody = document.getElementById("studentsTabBody")
+            const studentsGenderSel = document.getElementById("studentGender")
+
+            const studentName = document.getElementById("studentName").value
+            const studentsGender = studentsGenderSel.options[studentsGenderSel.value - 1].text
+            const studentsBirthDate = document.getElementById("studentBirthDate").value
+            const studentAge = Math.floor((new Date() - new Date(studentsBirthDate)) / 1000 / 60 / 60 / 24 / 365)
+
+            const newRow = studentsTabBody.insertRow(studentsTabBody.rows.length)
+
+            const nameCell = newRow.insertCell(-1);
+            nameCell.appendChild(document.createTextNode(studentName))
+            const genderCell = newRow.insertCell(-1);
+            genderCell.appendChild(document.createTextNode(studentsGender))
+            const birthDateCell = newRow.insertCell(-1);
+            birthDateCell.appendChild(document.createTextNode(studentsBirthDate))
+            const ageCell = newRow.insertCell(-1);
+            ageCell.appendChild(document.createTextNode(studentAge.toString()))
+
+            document.getElementById("avgAge").innerHTML = calcAvgAge(studentsTabBody)
+        }
+    </script>
+</head>
+
+<body>
+<h3>Форма добавления информации о студенте</h3>
+
+<form class="student-form">
+    <p>
+        <label class="student-name-label" for="studentName">Имя студента:</label>
+        <input class="student-name" id="studentName" name="name" type="text" value="Михаил">
+    </p>
+
+    <p>
+        <label class="student-birthdate-label" for="studentBirthDate">Дата рождения:</label>
+        <input class="student-birthdate" id="studentBirthDate" name="birthDate" type="date" value="1986-01-30">
+    </p>
+
+    <p>
+        <label class="student-gender-label">
+            Пол:
+            <select class="student-gender" id="studentGender" name="gender">
+                <option value="1" selected>мужчина</option>
+                <option value="2">женщина</option>
+            </select>
+        </label>
+    </p>
+
+    <p>
+        <button class="add-button" onclick="addStudent()" type="button">Добавить</button>
+    </p>
+</form>
+
+<h3>Таблица студентов</h3>
+<table class="students-tab" id="studentsTab">
+    <thead>
+    <tr>
+        <td class="students-tab-col1">Имя студента</td>
+        <td class="students-tab-col2">Пол</td>
+        <td class="students-tab-col3">Дата рождения</td>
+        <td class="students-tab-col4">Возраст</td>
+    </tr>
+    </thead>
+    <tbody id="studentsTabBody">
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">Средний возраст студентов</td>
+        <td id="avgAge"></td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>

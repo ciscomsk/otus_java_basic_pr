@@ -1,0 +1,92 @@
+1. Установите докер для вашей операционной системы.
+https://docs.docker.com/engine/install/ubuntu/
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+2. Выполните docker run hello-world.
+docker run hello-world
+
+3. Убедитесь, что видите строки:
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
++
+
+4. Узнайте размер образа hello-world.
+docker images | grep hello-world
+13.3Kb
+
+5. Посмотрите какие контейнеры сейчас запущены.
+docker ps
+
+6. В одной консоли: выполните docker run -it ubuntu bash.
+docker run -it ubuntu bash
+
+7. В другой консоли еще раз посмотрите работающие контейнеры, убедитесь, что
+есть контейнер с образом ubuntu.
+docker ps
+
+8. Вернитесь в консоль, где вы запустили docker run -it ubuntu bash
++
+
+9. Начните с выполнения команды ls, "походите" по файловой системе,
+убедитесь, что это "какая-то другая" операционная система.
+cd /home
+ls -la
+
+10. Перейдите в каталог home и в нем создайте новый каталог test.
+cd /home
+mkdir test
+ls -la
+
+11. Выполните exit и убедитесь, что вернулись в "свою" операционную систему.
+exit
+
+12. Еще раз выполните docker run -it ubuntu bash.
+docker run -it ubuntu bash
+
+13. Перейдите к каталог home, убедитесь, что созданного вами каталога test нет.
+cd /home
+ls -la
+
+14. Очень важный пункт: подумайте, куда пропал каталог test
+Каталог test не сохранился т.к. не использовались volume/folder binding для сохранения данных.
+
+15. Запустите PostgreSQL 13.1 в докере.
+docker run -e POSTGRES_PASSWORD=mysecretpassword -d postgres:13.1-alpine
+
+16. Подключитесь к запущенному контейнеру с базой.
+docker exec -it 0afc49817771 bash
+su - postgres
+psql
+
+17. Создайте таблицу tTestDoc с любыми полями.
+\l
+use postgres
+CREATE TABLE departments
+(
+    department_id   SERIAL          PRIMARY KEY,
+    name            VARCHAR(100)    NOT NULL UNIQUE,
+    manager         VARCHAR(100)
+);
+\dt
+
+18. Остановите и удалите контейнер.
+docker stop 0afc49817771
+docker rm 0afc49817771
+
+19. Еще раз запустите контейнер с базой.
+docker run -e POSTGRES_PASSWORD=mysecretpassword -d postgres:13.1-alpine
+
+20. Подключитесь к базе данных, убедитесь, что таблицы tTestDoc нет.
+docker exec -it 09f21d09da3d bash
+\l
+use postgres
+\dt
+
+21. Подумайте, почему пропала таблица.
+Таблица не сохранилась т.к. не использовались volume/folder binding для сохранения данных.
+
+22. Остановите контейнер работа завершена.
+docker stop 09f21d09da3d
+
+
